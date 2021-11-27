@@ -1,5 +1,6 @@
 package com.example.myapplication.retrofit
 
+import com.example.myapplication.BuildConfig
 import com.example.myapplication.datamodels.Fixtures
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -9,7 +10,7 @@ interface ApiService {
     @GET(APIConstants.FIXETURES_BY_DATE + "/{date}")
     @Headers(
         "x-rapidapi-host:${APIConstants.HOST}",
-        "x-rapidapi-key:${APIConstants.API_KEY}"
+        "x-rapidapi-key:${BuildConfig.API_KEY}"
     )
     suspend fun getFixturesByDate(@Path(value = "date") date: String): Fixtures
 }
