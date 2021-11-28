@@ -6,22 +6,23 @@ import com.example.myapplication.retrofit.CricketRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MainActivityViewModel(private val repository: CricketRepository) : ViewModel() {
-    private val _fixturesLiveDate = MutableLiveData<Fixtures>()
-    val fixturesLiveDate : LiveData<Fixtures>  = _fixturesLiveDate
+class FixturesActivityViewModel(private val repository: CricketRepository) : ViewModel() {
+    private val _fixturesLiveDate = MutableLiveData<List<Fixtures.Result>>()
+    val fixturesLiveDate : LiveData<List<Fixtures.Result>>  = _fixturesLiveDate
 
     init {
         viewModelScope.launch {
-            _fixturesLiveDate.postValue(repository.getFixturesByDate(Date()))
+            var data = repository.getFixturesByDate(Date()).results
+            _fixturesLiveDate.postValue(data)
         }
     }
 }
 
-class MainActivityViewModelFactory(private val repository: CricketRepository) : ViewModelProvider.Factory {
+class FixturesActivityViewModelFactory(private val repository: CricketRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainActivityViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(FixturesActivityViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MainActivityViewModel(repository) as T
+            return FixturesActivityViewModel(repository) as T
         }
         throw IllegalArgumentException("Unable to construct viewmodel")
     }

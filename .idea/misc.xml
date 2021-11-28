@@ -5,6 +5,12 @@
       <map>
         <entry key="app/src/main/res/drawable/button_bg.xml" value="1.2714285714285714" />
         <entry key="app/src/main/res/drawable/fixtures_bg.xml" value="1.2714285714285714" />
+        <entry key="app/src/main/res/drawable/fixtures_selected_bg.xml" value="1.2392857142857143" />
+        <entry key="app/src/main/res/drawable/ic_afghanistan_32928.xml" value="1.2392857142857143" />
+        <entry key="app/src/main/res/drawable/ic_india_32988.xml" value="1.2392857142857143" />
+        <entry key="app/src/main/res/drawable/ic_new_33036.xml" value="1.2392857142857143" />
+        <entry key="app/src/main/res/drawable/ic_refresh.xml" value="1.4678571428571427" />
+        <entry key="app/src/main/res/drawable/ic_refresh_black_24dp.xml" value="1.4678571428571427" />
         <entry key="app/src/main/res/layout/activity_fixtures.xml" value="0.8421052631578947" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.625" />
         <entry key="app/src/main/res/layout/fixtures_list_item.xml" value="0.8421052631578947" />

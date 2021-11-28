@@ -15,12 +15,114 @@
             android:alpha="0.2"/>
 
         <LinearLayout
-            android:id="@+id/textViewsLayout"
+            android:id="@+id/llMatchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvInningTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="India 2nd Innings"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:visibility="visible"
+                android:textColor="@color/theme_color"/>
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="14/1 (5)"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="visible"
+                android:textSize="22sp"
+                android:textColor="@color/theme_color"/>
+
+            <RelativeLayout
+                android:id="@+id/rlTeams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivLeft"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="-20dp"/>
+
+                <ImageView
+                    android:id="@+id/ivRight"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="-20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="India v New Zealand at Green Park, Kanpur, Test."
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/ivLeft"
+                    android:layout_toLeftOf="@id/ivRight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1st Test - Day 1"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="italic"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/tvRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Refresh"
+                android:drawableRight="@drawable/ic_refresh_black_24dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="italic"
+                android:layout_marginTop="15dp"
+                android:textSize="8sp"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSelectionView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <LinearLayout
@@ -39,7 +141,8 @@
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -54,11 +157,21 @@
                     android:text="ADD"
                     android:textColor="@android:color/white"
                     android:textSize="10sp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loading"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
 
     </FrameLayout>

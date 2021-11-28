@@ -1,7 +1,10 @@
 package com.example.myapplication.ui.fixtures
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import com.example.myapplication.retrofit.CricketRepository
 import com.example.myapplication.retrofit.RetrofitClient
@@ -10,21 +13,26 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.wear.widget.WearableLinearLayoutManager
 import androidx.wear.widget.WearableRecyclerView
+import com.example.myapplication.Constants
 import com.example.myapplication.R
 import com.example.myapplication.datamodels.Fixtures
 
 class FixturesActivity : ComponentActivity() {
 
     private val repository = CricketRepository(RetrofitClient.getApiService())
-    private val viewModel : MainActivityViewModel by viewModels { MainActivityViewModelFactory(repository) }
+    private val viewModel : FixturesActivityViewModel by viewModels { FixturesActivityViewModelFactory(repository) }
     private lateinit var recyclerView : WearableRecyclerView
+    private lateinit var loading : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_fixtures)
 
+        loading = findViewById(R.id.loading)
+
         viewModel.fixturesLiveDate.observe(this, Observer {
+            loading.visibility = View.GONE
             setListView(it)
         })
 
@@ -36,8 +44,14 @@ class FixturesActivity : ComponentActivity() {
         }
     }
 
-    private fun setListView(fixtures : Fixtures){
-        val adapter = FixturesAdapter(fixtures.results)
+    private fun setListView(fixtures : List<Fixtures.Result>){
+        val adapter = FixturesAdapter(fixtures) {
+            val intent = Intent()
+            intent.putExtra(Constants.MATCH_ID,it.id)
+            intent.putExtra(Constants.MATCH,it)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
+        }
         recyclerView.adapter = adapter
     }
 }
