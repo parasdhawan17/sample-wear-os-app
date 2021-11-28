@@ -18,6 +18,9 @@ package com.example.myapplication
 import androidx.core.content.ContextCompat
 import androidx.wear.tiles.*
 import androidx.wear.tiles.DimensionBuilders.*
+import com.example.myapplication.datastore.DataStore
+import com.example.myapplication.retrofit.CricketRepository
+import com.example.myapplication.retrofit.RetrofitClient
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,13 +32,19 @@ private const val RESOURCES_VERSION = "1"
 class ScoreTileService : TileService(){
 
     private val serviceScope = CoroutineScope(Dispatchers.IO)
+    private val repository = CricketRepository(RetrofitClient.getApiService())
 
     override fun onTileRequest(requestParams: RequestBuilders.TileRequest)= serviceScope.future {
+
+        val matchId = DataStore(applicationContext).getInt(Constants.SHARED_PREF_KEY_MATCH_ID)
+        val matchDetails = repository.getMatchDetailsById(matchId)
+        val scoreCard = matchDetails.results.live_details.scorecard.last()
         // Creates Tile.
         TileBuilders.Tile.Builder()
             // If there are any graphics/images defined in the Tile's layout, the system will
             // retrieve them via onResourcesRequest() and match them with this version number.
             .setResourcesVersion(RESOURCES_VERSION)
+            .setFreshnessIntervalMillis(10*1000)
 
             // Creates a timeline to hold one or more tile entries for a specific time periods.
             .setTimeline(
@@ -47,7 +56,7 @@ class ScoreTileService : TileService(){
                                     .setRoot(
                                         LayoutElementBuilders.Text.Builder()
                                             .setText(
-                                                getString(R.string.placeholder_text)
+                                                "${scoreCard.runs}/${scoreCard.wickets} (${scoreCard.overs})"
                                             )
                                             .build()
                                     )

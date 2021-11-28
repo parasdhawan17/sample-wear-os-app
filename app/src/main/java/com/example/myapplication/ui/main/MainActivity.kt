@@ -97,7 +97,6 @@ class MainActivity : ComponentActivity() {
                     llSelectionView.visibility = View.VISIBLE
                 }
                 is Result.Loading -> {
-
                     if(it.isLoading){
                         llSelectionView.visibility = View.GONE
                         loading.visibility = View.VISIBLE
@@ -139,6 +138,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.refresh()
     }
 
     private fun startListActivity(){
